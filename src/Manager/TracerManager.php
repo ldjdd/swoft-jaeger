@@ -33,9 +33,9 @@ class TracerManager
 
         $mode = env('JAEGER_MODE', 1);
         if ($mode == 1) {
-            $config->setTransport(new JaegerTransportUdp(env('JAEGER_SERVER_HOST'), 8000));
+            $config->setTransport(new JaegerTransportUdp(env('JAEGER_SERVER_HOST'), env('JAEGER_UDP_MAX_PACKET_SIZE', 8000)));
         } elseif ($mode == 2) {
-            $config->setTransport(new JaegerTransportLog(4000));
+            $config->setTransport(new JaegerTransportLog(, env('JAEGER_LOG_MAX_PACKET_SIZE', 4000)));
         } else {
             throw new \Exception("jaeger's mode is not set");
         }
